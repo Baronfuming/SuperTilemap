@@ -1,3 +1,8 @@
+⚠️ This repository is a fork of [original repo] and is currently under construction.
+It is being updated to support newer versions of Godot and Blender.
+Please check back later for usable content.
+
+
 # SuperTilemap
 
 This is a Godot Engine 3.1 project showing the use of stacked TileMap nodes to render a classic sloped isometric map, as seen in Transport Tycoon Deluxe (or OpenTTD, nowadays).
