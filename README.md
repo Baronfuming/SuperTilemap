@@ -1,6 +1,6 @@
 ⚠️ This repository is a fork of [original repo] and is currently under construction.
 It is being updated to support newer versions of Godot and Blender.
-Please check back later for usable content.
+Please check back later for usable content, or try generating your own isometric sloped tiles with the new script.
 
 
 # SuperTilemap
@@ -15,6 +15,24 @@ The default TileMap node represents a single level of tiles and has built-in sup
 [Dean](https://github.com/deanvaessen) wanted a tilemap with multiple levels, and I wanted to see if I could make it work because for some reason sloped iso heightmaps seem to be somewhat of a mystery. So here we are!
 
 ## Usage
+
+### **NEW!** Generate isometric sloped tiles with custom dimensions and with your own textures!
+**Prerequisites:**
+1. Requires Python 3: https://www.python.org/downloads/
+2. In Python, use 'pip install numpy' to install the required NumPy package.
+3. Install ImageMagick from https://imagemagick.org/script/download.php. When installing be sure to check the *add to path* box from the installer.
+
+**Instructions:**
+1. Download or clone this repository
+2. Navigate to the "CustomTiles" folder
+3. Open the *process_isometric_slopes.py* script in your preferred editor.
+3a. You can set variables such as the size of the generated tiles, input and output paths, and even adjust the color tolerance or shading factor to your preference (though the default values seem the best overall, it is up to you and your taste.)
+4. Replace *texture.png* with the texture of your choice.
+5. Run the *process_isometric_slopes.py* script. It will generate sloped isometric tiles with your texture and the correct shading in the size you set. It will also create a unified *terrain.png* image of all your tiles, ready to by used in a tileset. It also generates shadermap images for debugging purposes.
+
+Also included is a modifired version of Clint Bellanger's terrain_tool.blend if you want to make your own renders. This version fixes the missing shaders and replaces them with Emission nodes, with Cyan, Yellow, and Magenta for the face-shading, to make it easier for the script to differentiate them.
+
+## In Godot
 Open the project in Godot, click the "World" Node in the main scene that pops up and play with its exported settings. Running the project/scene will draw the map.
 
 ## Concept
