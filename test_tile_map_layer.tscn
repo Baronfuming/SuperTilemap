@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dymofjk2a85ak"]
+
+[ext_resource type="Material" uid="uid://bf5y0mxqcv41g" path="res://tile_stretching_material.tres" id="1_2j0f4"]
+[ext_resource type="Script" uid="uid://2e3bnt7jho17" path="res://SingleTileMap.gd" id="1_b08ru"]
+[ext_resource type="TileSet" uid="uid://bwc1e7bgxe6km" path="res://terrain.tres" id="1_i2lyp"]
+[ext_resource type="Script" uid="uid://hvxodvgrtmcj" path="res://camera_2d.gd" id="2_i2lyp"]
+
+[node name="TestTileMapLayer" type="TileMapLayer"]
+material = ExtResource("1_2j0f4")
+use_parent_material = true
+tile_set = ExtResource("1_i2lyp")
+script = ExtResource("1_b08ru")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_i2lyp")

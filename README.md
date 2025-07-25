@@ -30,7 +30,7 @@ The default TileMap node represents a single level of tiles and has built-in sup
 4. Replace *texture.png* with the texture of your choice.
 5. Run the *process_isometric_slopes.py* script. It will generate sloped isometric tiles with your texture and the correct shading in the size you set. It will also create a unified *terrain.png* image of all your tiles, ready to by used in a tileset. It also generates shadermap images for debugging purposes.
 
-Also included is a modifired version of Clint Bellanger's terrain_tool.blend if you want to make your own renders. This version fixes the missing shaders and replaces them with Emission nodes, with Cyan, Yellow, and Magenta for the face-shading, to make it easier for the script to differentiate them.
+Also included is a modified version of Clint Bellanger's terrain_tool.blend if you want to make your own renders. This version fixes the missing shaders and replaces them with Emission nodes, with Cyan, Yellow, and Magenta for the face-shading, to make it easier for the script to differentiate them.
 
 ## In Godot
 Open the project in Godot, click the "World" Node in the main scene that pops up and play with its exported settings. Running the project/scene will draw the map.

@@ -6,17 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[  ]
-_global_script_class_icons={
-
-}
+config_version=5
 
 [application]
 
 config/name="SuperTilemap"
 run/main_scene="res://SuperTilemap_Main.tscn"
+config/features=PackedStringArray("4.4")
 config/icon="res://icon.png"
 
 [importer_defaults]
@@ -42,6 +38,20 @@ texture={
 "svg/scale": 1.0
 }
 
+[input]
+
+"zoom in - scroll up"={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":8,"position":Vector2(197, 6),"global_position":Vector2(206, 54),"factor":1.0,"button_index":4,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+"zoom out - scroll down"={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":16,"position":Vector2(256, 23),"global_position":Vector2(265, 71),"factor":1.0,"button_index":5,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+
 [rendering]
 
+2d/snap/snap_2d_transforms_to_pixel=true
 environment/default_environment="res://default_env.tres"
