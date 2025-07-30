@@ -1,29 +1,33 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1753413531
-camera_2d.gd::GDScript::536095520556813349::1753383133::0::1::::<>Camera2D<><>0<>0<><>::
+::res://::1753832717
+camera_2d.gd::GDScript/GDScript::536095520556813349::1753383133::0::1::::<>Camera2D<><>0<>0<><>::
 default_env.tres::Environment/Environment::2876071889214157923::1753158299::0::1::::<><><>0<>0<><>::
+dirt_face_texture64x64.png::CompressedTexture2D/CompressedTexture2D::2993792340775685765::1753761287::1753761290::1::::<><><>0<>0<>6d45b01d2c9707b7b80e18696bff98a3<>res://.godot/imported/dirt_face_texture64x64.png-93b51bbcbd16fb1df27e4045c224a554.ctex::
+dirt_face_texture64x64_iso.png::CompressedTexture2D/CompressedTexture2D::4220989201486638526::1753760599::1753760617::1::::<><><>0<>0<>59880953357aab63efc2f2eab554a40f<>res://.godot/imported/dirt_face_texture64x64_iso.png-0f9ae9b59dc58559b045934ab9bc74b1.ctex::
+dirt_face_texture.png::CompressedTexture2D/CompressedTexture2D::4428809205416378895::1753461277::1753461282::1::::<><><>0<>0<>503ea9f20d4f0aeb4dca80fadc720493<>res://.godot/imported/dirt_face_texture.png-ef52a4337746b0963c6df21808673050.ctex::
 Grass_Tileset.tres::TileSet/TileSet::7377767274564808835::1753253296::0::1::::<><><>0<>0<><>::uid://d11npo40u534x::::res://tiles_sand.png
 icon.png::CompressedTexture2D/CompressedTexture2D::467350366007883539::1753132458::1753145681::1::::<><><>0<>0<>08a4b680a486ed94bee19ac1c5188430<>res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.ctex::
 LICENSE.txt::TextFile/TextFile::-1::1753132458::0::1::::<><><>0<>0<><>::
 README.md::TextFile/TextFile::-1::1753242803::0::1::::<><><>0<>0<><>::
-Red_Tileset.tres::TileSet::1982104820610144085::1753383976::0::1::::<><><>0<>0<><>::uid://d11npo40u534x::::res://tiles_sand.png
-tile_overlap.gdshader::Shader::7895888359687313826::1753413531::0::1::::<><><>0<>0<><>::
-tile_stretching_material.tres::ShaderMaterial::2800798753720276342::1753400565::0::1::::<><><>0<>0<><>::
-Sand_Tileset.tres::TileSet::2512948262124136479::1753413531::0::1::::<><><>0<>0<><>::uid://d11npo40u534x::::res://tiles_sand.png
-SingleTileMap.gd::GDScript::1905058864455567956::1753408851::0::1::::<>TileMapLayer<><>0<>0<><>::
-SingleTileMap.tscn::PackedScene::5789934308943445475::1753413531::0::1::::<><><>0<>0<><>::uid://bb2j5jxjx1my6::::res://Sand_Tileset.tres<>uid://bf5y0mxqcv41g::::res://tile_stretching_material.tres<>uid://2e3bnt7jho17::::res://SingleTileMap.gd<>uid://hvxodvgrtmcj::::res://camera_2d.gd<>uid://dq18ffbcakab4::::res://tiles_red.png
-SuperTilemap_Main.gd::GDScript::5044157706709246690::1753408677::0::1::::<>Node2D<><>0<>0<><>::
-SuperTilemap_Main.tscn::PackedScene::3822463381245092739::1753413531::0::1::::<><><>0<>0<><>::uid://cd4osm1t71sg5::::res://SuperTilemap_Main.gd<>uid://hvxodvgrtmcj::::res://camera_2d.gd
-terrain.tres::TileSet::3936291466821031404::1753398032::0::1::::<><><>0<>0<><>::uid://cbqbof6vs5ktl::::res://CustomTiles/Output/terrain.png
-test_tile_map_layer.tscn::PackedScene::8869426287695336298::1753413531::0::1::::<><><>0<>0<><>::uid://bf5y0mxqcv41g::::res://tile_stretching_material.tres<>uid://2e3bnt7jho17::::res://SingleTileMap.gd<>uid://bwc1e7bgxe6km::::res://terrain.tres<>uid://hvxodvgrtmcj::::res://camera_2d.gd
+Red_Tileset.tres::TileSet/TileSet::1982104820610144085::1753383976::0::1::::<><><>0<>0<><>::uid://d11npo40u534x::::res://tiles_sand.png
+Sand_Tileset.tres::TileSet::2512948262124136479::1753823800::0::1::::<><><>0<>0<><>::uid://d11npo40u534x::::res://tiles_sand.png
+SingleTileMap.gd::GDScript::1905058864455567956::1753822005::0::1::::<>TileMapLayer<><>0<>0<><>::
+SingleTileMap.tscn::PackedScene::5789934308943445475::1753832665::0::1::::<><><>0<>0<><>::uid://bb2j5jxjx1my6::::res://Sand_Tileset.tres<>uid://2e3bnt7jho17::::res://SingleTileMap.gd<>uid://hvxodvgrtmcj::::res://camera_2d.gd<>uid://dq18ffbcakab4::::res://tiles_red.png
+sky_face_texture64x64.png::CompressedTexture2D/CompressedTexture2D::4447767179294149035::1753760645::1753760646::1::::<><><>0<>0<>422e1eb3fd26670b69e7d446d0fd8ed1<>res://.godot/imported/sky_face_texture64x64.png-70c641a74d9741b6c733c9ab8dd0bbe6.ctex::
+SuperTilemap_Main.gd::GDScript::5044157706709246690::1753832436::0::1::::<>Node2D<><>0<>0<><>::
+SuperTilemap_Main.tscn::PackedScene::3822463381245092739::1753832665::0::1::::<><><>0<>0<><>::uid://cd4osm1t71sg5::::res://SuperTilemap_Main.gd<>uid://hvxodvgrtmcj::::res://camera_2d.gd
+terrain.tres::TileSet::3936291466821031404::1753466564::0::1::::<><><>0<>0<><>::uid://cbqbof6vs5ktl::::res://CustomTiles/Output/terrain.png
+test_tile_map_layer.tscn::PackedScene::8869426287695336298::1753832665::0::1::::<><><>0<>0<><>::uid://bf5y0mxqcv41g::::res://tile_stretching_material.tres<>uid://2e3bnt7jho17::::res://SingleTileMap.gd<>uid://bwc1e7bgxe6km::::res://terrain.tres<>uid://hvxodvgrtmcj::::res://camera_2d.gd
 tiles_grass.png::CompressedTexture2D/CompressedTexture2D::7348988689056739753::1753132458::1753145681::1::::<><><>0<>0<>709f16f71a60b0ed6440db61cd7f26ea<>res://.godot/imported/tiles_grass.png-364e135a83a072a200c00d879e0eb2ed.ctex::
 tiles_red.png::CompressedTexture2D/CompressedTexture2D::8337970224877012367::1753132458::1753145681::1::::<><><>0<>0<>e710c61272f34c941706690ca314f0b8<>res://.godot/imported/tiles_red.png-25ecb194bccef675047c7d363d669951.ctex::
 tiles_sand - Copy.png::CompressedTexture2D/CompressedTexture2D::2565703891003980246::1753132458::1753384827::1::::<><><>0<>0<>8903d123eafae559d65a0b8337321d85<>res://.godot/imported/tiles_sand - Copy.png-dc69151739cdbc58cc4c2e0766f75af0.ctex::
 tiles_sand.png::CompressedTexture2D/CompressedTexture2D::9038662696378291697::1753413548::1753413548::1::::<><><>0<>0<>4b5654f5699a12b934744748deaa1cab<>res://.godot/imported/tiles_sand.png-c30c033d4096137e379c13dc9484e779.ctex::
 tiles_screenshot.png::CompressedTexture2D/CompressedTexture2D::7355670152052831112::1753132458::1753145681::1::::<><><>0<>0<>bb1682cc168a32527b21c6f985bd3176<>res://.godot/imported/tiles_screenshot.png-ccf9757af30ae0df38ce43d7287d0b9c.ctex::
-tile_interpolation.gdshader::Shader::686878860623118640::1753413531::0::1::::<><><>0<>0<><>::
-tile_stretching.gdshader::Shader::3885487827094518307::1753413531::0::1::::<><><>0<>0<><>::
-UpdateIsometricTileSets.gd::GDScript::702777991142081757::1753387116::0::1::::<>EditorScript<><>0<>1<><>::
+tile_interpolation.gdshader::Shader::686878860623118640::1753832665::0::1::::<><><>0<>0<><>::
+tile_overlap.gdshader::Shader::7895888359687313826::1753832665::0::1::::<><><>0<>0<><>::
+tile_stretching.gdshader::Shader::3885487827094518307::1753832665::0::1::::<><><>0<>0<><>::
+tile_stretching_material.tres::ShaderMaterial::2800798753720276342::1753466564::0::1::::<><><>0<>0<><>::
+UpdateIsometricTileSets.gd::GDScript/GDScript::702777991142081757::1753387116::0::1::::<>EditorScript<><>0<>1<><>::
 ::res://CustomTiles/::1753412752
 blank.png::CompressedTexture2D/CompressedTexture2D::8606216304749925346::1753141045::1753145681::1::::<><><>0<>0<>31c08cdebc61ac9e758b7fc4a0d80060<>res://.godot/imported/blank.png-77835c1be1f209baf01ef1bf80ab9a93.ctex::
 terrain_tool.blend::PackedScene/PackedScene::6292500573810395679::1753143095::1753145684::1::::<><><>0<>0<>b03df1837f737e505ae36db0a0d196a8<>res://.godot/imported/terrain_tool.blend-901b138b1e37a49215653655135ac07e.scn::
@@ -96,5 +100,7 @@ shadermap_processed_0019.png::CompressedTexture2D/CompressedTexture2D::114196964
 shadermap_processed_0020.png::CompressedTexture2D/CompressedTexture2D::6013733849233455123::1753312015::1753312021::1::::<><><>0<>0<>db6dc6ddfd84189e1ed23ff69fb4a304<>res://.godot/imported/shadermap_processed_0020.png-4e910f098ee0ccf442883ec8031fed48.ctex::
 shadermap_processed_0021.png::CompressedTexture2D/CompressedTexture2D::7878932237979447448::1753312016::1753312021::1::::<><><>0<>0<>914bfec84f160aa94fbf2690cfd3bc2f<>res://.godot/imported/shadermap_processed_0021.png-1704c6ea482758f16fff41e43a844eff.ctex::
 shadermap_processed_0022.png::CompressedTexture2D/CompressedTexture2D::5028400742200362143::1753312016::1753312021::1::::<><><>0<>0<>cf1aa93dca93317ab79a01e4b58aae12<>res://.godot/imported/shadermap_processed_0022.png-eede0af03d91bdaaad5792b5912869c0.ctex::
-terrain - backup.png::CompressedTexture2D::3319951692476338616::1753312017::1753397861::1::::<><><>0<>0<>c2ca91a3db0aa9185fa398533677dada<>res://.godot/imported/terrain - backup.png-d4c7956a0e82b1216a76b648177c0ca1.ctex::
+terrain - backup.png::CompressedTexture2D/CompressedTexture2D::3319951692476338616::1753312017::1753397861::1::::<><><>0<>0<>c2ca91a3db0aa9185fa398533677dada<>res://.godot/imported/terrain - backup.png-d4c7956a0e82b1216a76b648177c0ca1.ctex::
 terrain.png::CompressedTexture2D/CompressedTexture2D::4876146284681702825::1753312017::1753312021::1::::<><><>0<>0<>cee7e54dedd949e3cb4eb224bc22adee<>res://.godot/imported/terrain.png-ed4beb63bc1948160f115b1ceea629cb.ctex::
+::res://notes/::1753561485
+pseudo z-axis.txt::TextFile/TextFile::-1::1753561504::0::1::::<><><>0<>0<><>::

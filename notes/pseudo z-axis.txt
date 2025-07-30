@@ -1,0 +1,2 @@
+Pseudo-Z-Axis: Each sprite’s position.y (e.g., 32, 96, 160, ...) can be used as a Z-depth proxy, trackable via face_container.get_children() if needed later.
+

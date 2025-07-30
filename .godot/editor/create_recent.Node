@@ -1,3 +1,6 @@
+Sprite2D
+Node2D
+MeshInstance2D
 Line2D
 TileMapLayer
 Camera2D

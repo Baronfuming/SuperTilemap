@@ -1,13 +1,16 @@
 extends Node2D
 
 const tilemap_scene: PackedScene = preload("res://SingleTileMap.tscn")
-#const tilemap_scene: PackedScene = preload("res://test_tile_map_layer.tscn")
 var textures: Array[Texture2D] = [
 	preload("res://CustomTiles/Output/terrain.png"),
 	preload("res://tiles_grass.png"),
 	preload("res://tiles_red.png"),
 	preload("res://tiles_sand.png")
 ]
+
+# textures for above and below terrain tiles
+var ground_texture = preload("res://dirt_face_texture64x64.png")
+var sky_texture = preload("res://sky_face_texture64x64.png")
 
 var tile_id_to_atlas: Dictionary = {
 	0: Vector2i(0, 0),  # Flat ("00")
@@ -46,10 +49,13 @@ var tile_id_to_atlas: Dictionary = {
 @export_range(0.0, 40.0) var noise_period: float = 30.0
 @export_range(0.0, 1.0) var noise_persistence: float = 0.8
 @export var noise_frequency: float = 1.0
+@export var tile_sizeX: int = 64
+@export var tile_sizeY: int = 32
 
 var grid: Dictionary = {}
 var tile_ids: Dictionary = {}
 var maps: Array[TileMapLayer] = []
+var z_coords: Dictionary = {}  # Proxy z-axis as array
 
 var directions: Dictionary = {
 	"CORNER_N": Vector2(-1, -1),
@@ -185,111 +191,182 @@ func _ready() -> void:
 			print("Cell %s: Noise %f, Height %d" % [Vector2(i, j), current_noise, gridval])
 
 	var cell_index: int = 0
-	for cell in grid:
-		var neighbor_bits: Dictionary = {}
-		var neighbors: int = 0
-		var neighbor_steep: Dictionary = {}
-		for dir_key in directions:
-			var direction: Vector2 = directions[dir_key]
-			var diag_key: Vector2 = cell + direction
-			if grid.has(diag_key):
-				var neighbor: int = grid[diag_key]
-				var height_diff: int = neighbor - grid[cell]
-				if height_diff == 1:
-					neighbor_bits[direction] = 1
-				elif height_diff >= 2:
-					neighbor_bits[direction] = 1
-					neighbor_steep[direction] = true
-				else:
-					neighbor_bits[direction] = 0
-				# Log adjacent cell details
-				var adj_tile_id = tile_ids.get(grid.get(diag_key, 0), 0)
-				print("Adjacent cell %s: Tile ID %d, Atlas %s" % [diag_key, adj_tile_id, tile_id_to_atlas.get(adj_tile_id, Vector2i(0, 0))])
-			else:
-				neighbor_bits[direction] = 0
+	var chunk_size: int = 50
+	for chunk_x in range(0, ceil(world_width / float(chunk_size))):
+		for chunk_y in range(0, ceil(world_height / float(chunk_size))):
+			var start_x: int = chunk_x * chunk_size
+			var end_x: int = min((chunk_x + 1) * chunk_size, world_width)
+			var start_y: int = chunk_y * chunk_size
+			var end_y: int = min((chunk_y + 1) * chunk_size, world_height)
+			for x in range(start_x, end_x):
+				for y in range(start_y, end_y):
+					var cell: Vector2 = Vector2(x, y)
+					if not grid.has(cell):
+						continue
+					var neighbor_bits: Dictionary = {}
+					var neighbors: int = 0
+					var neighbor_steep: Dictionary = {}
+					for dir_key in directions:
+						var direction: Vector2 = directions[dir_key]
+						var diag_key: Vector2 = cell + direction
+						if grid.has(diag_key):
+							var neighbor: int = grid[diag_key]
+							var height_diff: int = neighbor - grid[cell]
+							if height_diff == 1:
+								neighbor_bits[direction] = 1
+							elif height_diff >= 2:
+								neighbor_bits[direction] = 1
+								neighbor_steep[direction] = true
+							else:
+								neighbor_bits[direction] = 0
+							var adj_tile_id = tile_ids.get(grid.get(diag_key, 0), 0)
+							print("Adjacent cell %s: Tile ID %d, Atlas %s" % [diag_key, adj_tile_id, tile_id_to_atlas.get(adj_tile_id, Vector2i(0, 0))])
+						else:
+							neighbor_bits[direction] = 0
 
-		var side_bits: Dictionary = {}
-		for side_key in sides:
-			var direction: Vector2 = sides[side_key]
-			var cell_key: Vector2 = cell + direction
-			if grid.has(cell_key):
-				var side: int = grid[cell_key]
-				var height_diff: int = side - grid[cell]
-				if height_diff == 1:
-					side_bits[direction] = 1
-				else:
-					side_bits[direction] = 0
-				# Log adjacent cell details
-				var adj_tile_id = tile_ids.get(grid.get(cell_key, 0), 0)
-				print("Adjacent cell %s: Tile ID %d, Atlas %s" % [cell_key, adj_tile_id, tile_id_to_atlas.get(adj_tile_id, Vector2i(0, 0))])
-			else:
-				side_bits[direction] = 0
+					var side_bits: Dictionary = {}
+					for side_key in sides:
+						var direction: Vector2 = sides[side_key]
+						var cell_key: Vector2 = cell + direction
+						if grid.has(cell_key):
+							var side: int = grid[cell_key]
+							var height_diff: int = side - grid[cell]
+							if height_diff == 1:
+								side_bits[direction] = 1
+							else:
+								side_bits[direction] = 0
+							var adj_tile_id = tile_ids.get(grid.get(cell_key, 0), 0)
+							print("Adjacent cell %s: Tile ID %d, Atlas %s" % [cell_key, adj_tile_id, tile_id_to_atlas.get(adj_tile_id, Vector2i(0, 0))])
+						else:
+							side_bits[direction] = 0
 
-		neighbor_bits[directions.CORNER_N] |= side_bits[sides.SIDE_N] | side_bits[sides.SIDE_W]
-		neighbor_bits[directions.CORNER_W] |= side_bits[sides.SIDE_W] | side_bits[sides.SIDE_S]
-		neighbor_bits[directions.CORNER_E] |= side_bits[sides.SIDE_N] | side_bits[sides.SIDE_E]
-		neighbor_bits[directions.CORNER_S] |= side_bits[sides.SIDE_S] | side_bits[sides.SIDE_E]
+					neighbor_bits[directions.CORNER_N] |= side_bits[sides.SIDE_N] | side_bits[sides.SIDE_W]
+					neighbor_bits[directions.CORNER_W] |= side_bits[sides.SIDE_W] | side_bits[sides.SIDE_S]
+					neighbor_bits[directions.CORNER_E] |= side_bits[sides.SIDE_N] | side_bits[sides.SIDE_E]
+					neighbor_bits[directions.CORNER_S] |= side_bits[sides.SIDE_S] | side_bits[sides.SIDE_E]
 
-		for neigh_direction in directions:
-			if neighbor_bits.get(directions[neigh_direction], 0) == 1:
-				neighbors |= bitmasks[neigh_direction]
+					for neigh_direction in directions:
+						if neighbor_bits.get(directions[neigh_direction], 0) == 1:
+							neighbors |= bitmasks[neigh_direction]
 
-		var steep_dir: String = ""
-		if slopes and neighbor_steep.size() > 0:
-			if neighbor_steep.size() == 1:
-				for dir_key in neighbor_steep:
-					for dir_string in directions:
-						if directions[dir_string] == dir_key:
-							steep_dir = dir_string
-							neighbors |= bitmasks["STEEP"]
-							break
-					if steep_dir:
-						break
-			else:
-				neighbors &= ~bitmasks["STEEP"]
-				steep_dir = ""
+					var steep_dir: String = ""
+					if slopes and neighbor_steep.size() > 0:
+						if neighbor_steep.size() == 1:
+							for dir_key in neighbor_steep:
+								for dir_string in directions:
+									if directions[dir_string] == dir_key:
+										steep_dir = dir_string
+										neighbors |= bitmasks["STEEP"]
+										break
+								if steep_dir:
+									break
+						else:
+							neighbors &= ~bitmasks["STEEP"]
+							steep_dir = ""
 
-		if neighbor_steep.size() > 0:
-			print("Cell %s: Steep slope detected, direction %s, neighbors %d" % [cell, steep_dir, neighbors])
-		else:
-			print("Cell %s: Neighbors %d, Neighbor bits %s, Side bits %s" % [cell, neighbors, neighbor_bits, side_bits])
+					if neighbor_steep.size() > 0:
+						print("Cell %s: Steep slope detected, direction %s, neighbors %d" % [cell, steep_dir, neighbors])
+					else:
+						print("Cell %s: Neighbors %d, Neighbor bits %s, Side bits %s" % [cell, neighbors, neighbor_bits, side_bits])
 
-		if smooth:
-			if neighbor_bits[directions.CORNER_N] == 1 \
-			and neighbor_bits[directions.CORNER_W] == 1 \
-			and neighbor_bits[directions.CORNER_E] == 1 \
-			and neighbor_bits[directions.CORNER_S] == 1 \
-			and grid[cell] < levels - 2:
-				grid[cell] = min(grid[cell] + 1, levels - 1)
-				neighbors = 0
-				print("Cell %s: Smoothed, new height %d, neighbors reset to 0" % [cell, grid[cell]])
+					if smooth:
+						if neighbor_bits[directions.CORNER_N] == 1 \
+						and neighbor_bits[directions.CORNER_W] == 1 \
+						and neighbor_bits[directions.CORNER_E] == 1 \
+						and neighbor_bits[directions.CORNER_S] == 1 \
+						and grid[cell] < levels - 2:
+							grid[cell] = min(grid[cell] + 1, levels - 1)
+							neighbors = 0
+							print("Cell %s: Smoothed, new height %d, neighbors reset to 0" % [cell, grid[cell]])
 
-		var tile_id: int = 0
-		if slopes and steep_dir:
-			match steep_dir:
-				"CORNER_S":
-					tile_id = 16
-				"CORNER_W":
-					tile_id = 17
-				"CORNER_N":
-					tile_id = 18
-				"CORNER_E":
-					tile_id = 19
-		else:
-			tile_id = bit_tiles.get(neighbors, 0)
+					var tile_id: int = 0
+					if slopes and steep_dir:
+						match steep_dir:
+							"CORNER_S":
+								tile_id = 16
+							"CORNER_W":
+								tile_id = 17
+							"CORNER_N":
+								tile_id = 18
+							"CORNER_E":
+								tile_id = 19
+					else:
+						tile_id = bit_tiles.get(neighbors, 0)
 
-		tile_ids[grid[cell]] = tile_id
-		print("Cell %s: Height %d, Bitmask %d, Tile ID %d, Atlas %s" % [cell, grid[cell], neighbors, tile_id, tile_id_to_atlas.get(tile_id, Vector2i(0, 0))])
+					tile_ids[grid[cell]] = tile_id
+					print("Cell %s: Height %d, Bitmask %d, Tile ID %d, Atlas %s" % [cell, grid[cell], neighbors, tile_id, tile_id_to_atlas.get(tile_id, Vector2i(0, 0))])
 
-		var atlas_coords: Vector2i = tile_id_to_atlas.get(tile_id, Vector2i(0, 0))
-		maps[grid[cell]].set_cell(Vector2i(cell.x, cell.y), 0, atlas_coords)
+					var atlas_coords: Vector2i = tile_id_to_atlas.get(tile_id, Vector2i(0, 0))
+					maps[grid[cell]].set_cell(Vector2i(cell.x, cell.y), 0, atlas_coords)
 
-		if stacking:
-			if grid[cell] > 0:
-				for level in range(grid[cell]):
-					maps[level].set_cell(Vector2i(cell.x, cell.y), 0, tile_id_to_atlas[0])
+					if stacking:
+						if grid[cell] > 0:
+							for level in range(grid[cell]):
+								maps[level].set_cell(Vector2i(cell.x, cell.y), 0, tile_id_to_atlas[0])
 
-		if staggered_display:
-			cell_index += 1
-			if cell_index % tiles_per_frame == 0:
-				await get_tree().process_frame
+					# Generate slope faces only at specific boundaries
+					var face_container = maps[grid[cell]].get_node_or_null("SlopeFaceContainer")
+					if not face_container:
+						face_container = Node2D.new()
+						face_container.name = "SlopeFaceContainer"
+						face_container.z_index = -1
+						maps[grid[cell]].add_child(face_container)
+
+					if ground_texture and sky_texture:
+						var map_pos = maps[grid[cell]].map_to_local(Vector2i(cell.x, cell.y))
+						var center_offset = Vector2(tile_sizeX / 2.0, tile_sizeY / 2.0)
+						var sprite_pos = map_pos + center_offset
+						var map_bottom = world_height * tile_sizeY
+						var map_top = 0.0
+						var current_y = sprite_pos.y
+
+						# Store proxy z-axis
+						var z_ground: Array = []
+						var z_sky: Array = []
+						if cell.y != 0:
+							while current_y < map_bottom:
+								z_ground.append(current_y)
+								current_y += tile_sizeY
+						current_y = sprite_pos.y
+						while current_y > map_top:
+							z_sky.append(current_y)
+							current_y -= tile_sizeY
+						z_coords[cell] = {"ground": z_ground, "sky": z_sky}
+
+						# Place ground textures only at last row or column
+						if (cell.y == world_height - 1 or cell.x == world_width - 1) and cell.y != 0:
+							current_y = sprite_pos.y
+							while current_y < map_bottom:
+								var sprite = Sprite2D.new()
+								sprite.texture = ground_texture
+								sprite.region_enabled = true
+								sprite.region_rect = Rect2(0, 0, tile_sizeX, tile_sizeY)
+								sprite.position = Vector2(sprite_pos.x, current_y)
+								sprite.z_index = -1
+								# Darken ground texture on the left side (x == 0)
+								if cell.y == world_height -1:
+									sprite.modulate = Color(0.9, 0.9, 0.9, 1.0)  # 20% darker
+								else:
+									sprite.modulate = Color.WHITE
+								face_container.add_child(sprite)
+								print("Ground sprite position for cell %s at y: %s, modulate: %s" % [cell, current_y, sprite.modulate])
+								current_y += tile_sizeY
+
+						# Place sky textures only at first row or column
+						if (cell.y == 0 or cell.x == 0):
+							current_y = sprite_pos.y
+							while current_y > map_top:
+								var sprite = Sprite2D.new()
+								sprite.texture = sky_texture
+								sprite.region_enabled = true
+								sprite.region_rect = Rect2(0, 0, tile_sizeX, tile_sizeY)
+								sprite.position = Vector2(sprite_pos.x, current_y)
+								sprite.z_index = 1
+								face_container.add_child(sprite)
+								print("Sky sprite position for cell %s at y: %s" % [cell, current_y])
+								current_y -= tile_sizeY
+
+					if staggered_display:
+						cell_index += 1
+						if cell_index % tiles_per_frame == 0:
+							await get_tree().process_frame

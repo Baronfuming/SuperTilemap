@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bupvob6ck4tbn"]
+
+[ext_resource type="Script" uid="uid://cd4osm1t71sg5" path="res://SuperTilemap_Main.gd" id="1"]
+[ext_resource type="Script" uid="uid://hvxodvgrtmcj" path="res://camera_2d.gd" id="2_bajli"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1")
+world_width = 5
+world_height = 5
+levels = 3
+smooth = true
+texturing = true
+randomization = false
+noise_frequency = 0.5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_bajli")
